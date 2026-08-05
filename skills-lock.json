@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "sdd-archive": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-archive/SKILL.md",
+      "computedHash": "fa6ceb767351322b929f678174e9175f0f3eae2deb3a32461f087cedae2423d5"
+    },
+    "sdd-feature": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-feature/SKILL.md",
+      "computedHash": "f9866374e4ea2dbd9fa127061614f9b89aebca932f3896df2c63d0654e2ea055"
+    },
+    "sdd-implement": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-implement/SKILL.md",
+      "computedHash": "cdd6121779ee63fc2135f0579013f9dd1fe833212bbceb8bbb2d049b42496b33"
+    },
+    "sdd-init": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-init/SKILL.md",
+      "computedHash": "bfe98cf42f971436777cd9c1a519659d61e29f09fe643c34546ba2ba2be845ef"
+    },
+    "sdd-plan": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-plan/SKILL.md",
+      "computedHash": "d2f64637359ce75c4aa300c1994f517179320c9ad94685a088c020061b1e491c"
+    },
+    "sdd-refine": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-refine/SKILL.md",
+      "computedHash": "a182bae7f6aa271c2976a70754061fee88e4fb71caea0ddd33aee70841d395fd"
+    },
+    "sdd-review": {
+      "source": "sivaprasadreddy/sdd-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-review/SKILL.md",
+      "computedHash": "8f5cf65e448ed1f9dc9847fae4222ccc74547f4aab314c50a54449ff91a1124d"
+    }
+  }
+}

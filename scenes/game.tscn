@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c1jhtt4nvbabb"]
+
+[ext_resource type="PackedScene" uid="uid://so61by00eisd" path="res://scenes/world/world.tscn" id="2_world"]
+[ext_resource type="PackedScene" uid="uid://cwudhn0jxd4l6" path="res://scenes/player/player.tscn" id="3_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://cmaog850sk7dq" path="res://scenes/enemy/enemy.tscn" id="4_tlwt5"]
+[ext_resource type="Script" uid="uid://dvb8gldrpvog3" path="res://components/movement/target_movement_behavior.gd" id="5_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://bi28bpecb5fr" path="res://scenes/camera/camera.tscn" id="6_camera"]
+
+[sub_resource type="Resource" id="Resource_tlwt5"]
+script = ExtResource("5_aqk2v")
+target = Vector2(10, 40)
+metadata/_custom_type_script = "uid://dvb8gldrpvog3"
+
+[node name="Game" type="Node2D" unique_id=436653182]
+
+[node name="World" parent="." unique_id=471775756 instance=ExtResource("2_world")]
+
+[node name="Player" parent="." unique_id=330061065 instance=ExtResource("3_f3sb7")]
+position = Vector2(577, 340)
+
+[node name="Camera2D" parent="Player" unique_id=1900130519 instance=ExtResource("6_camera")]
+
+[node name="Enemy" parent="." unique_id=1987643249 instance=ExtResource("4_tlwt5")]
+position = Vector2(1038, 477)
+movement_behavior = SubResource("Resource_tlwt5")

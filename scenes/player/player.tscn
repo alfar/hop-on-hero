@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cwudhn0jxd4l6"]
+
+[ext_resource type="Script" uid="uid://b7j0u5fsvh52h" path="res://scenes/player/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b4e1r6xrwixse" path="res://components/movement/input_movement_behavior.gd" id="2_ihqmb"]
+
+[sub_resource type="Resource" id="InputMovementBehavior_ihqmb"]
+script = ExtResource("2_ihqmb")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsqmc"]
+
+[node name="Player" type="CharacterBody2D" unique_id=489508266]
+motion_mode = 1
+script = ExtResource("1_4flbx")
+movement_behavior = SubResource("InputMovementBehavior_ihqmb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1561564382]
+shape = SubResource("RectangleShape2D_fsqmc")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1337806566]
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 19.0
+color = Color(1, 0, 0.25882354, 1)
