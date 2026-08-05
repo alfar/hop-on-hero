@@ -11,7 +11,7 @@ A casual top-down dodge/auto-shooter (in the vein of Archero) with tower defense
 - ORM: none
 - Migrations: none
 - Messaging: none
-- Testing: none configured yet
+- Testing: GUT (Gut Unit Test) — Godot addon at `addons/gut/`
 - Other: Jolt Physics (3D physics engine, enabled even though gameplay is currently 2D)
 
 ## Architecture
@@ -31,6 +31,7 @@ Component/behavior-based design built on Godot's node and Resource system.
 - Entity/scene-owning files (a scene paired with its root script) live under `scenes/<entity>/`, e.g. `scenes/player/`, `scenes/enemy/`, `scenes/world/`, `scenes/camera/` — mirroring the `components/<category>/` convention. Follow this for future entities (towers, bosses, projectiles). `scenes/game.tscn` (the main scene) is the composition root and lives directly under `scenes/`, not in its own subfolder.
 - Tunable values (speed, targets, thresholds) are exposed via `@export` for designer/editor tuning rather than hardcoded constants buried in logic.
 - No centralized error handler, REST API, or auth — not applicable to this client-side game project.
+- Automated tests use GUT (`addons/gut/`). Test scripts extend `GutTest` and live under a `test/` directory, mirroring the convention of `res://test/unit/...` (GUT's default discovery path) — not yet populated with any tests.
 
 ## Features
 - **Player Input Movement Behavior**: player movement is driven by an `InputMovementBehavior` Resource (reads `Input.get_vector` and scales by speed) instead of inline input handling in `player.gd`, aligning it with the same component pattern already used by enemies (`docs/specs-archive/202608051109-player-input-movement-behavior/`)
@@ -52,5 +53,6 @@ Component/behavior-based design built on Godot's node and Resource system.
 ## Approved Dependencies
 - Godot Engine 4.7 built-in modules/classes
 - Jolt Physics (3D physics engine, built into Godot 4.7)
+- GUT (Gut Unit Test), vendored under `addons/gut/` — committed to version control like any other Godot addon; no package manager step fetches it for contributors
 
 Anything beyond core Godot and Jolt Physics (e.g. addons, asset packs, plugins) requires a flag before adding.
