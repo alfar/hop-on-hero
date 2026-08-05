@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b7j0u5fsvh52h" path="res://scenes/player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://b4e1r6xrwixse" path="res://components/movement/input_movement_behavior.gd" id="2_ihqmb"]
+[ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="3_status"]
+[ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="4_health_bar"]
 
 [sub_resource type="Resource" id="InputMovementBehavior_ihqmb"]
 script = ExtResource("2_ihqmb")
@@ -22,3 +24,8 @@ offset_top = -21.0
 offset_right = 20.0
 offset_bottom = 19.0
 color = Color(1, 0, 0.25882354, 1)
+
+[node name="Status" parent="." unique_id=1618486206 instance=ExtResource("3_status")]
+
+[node name="HealthBar" parent="." unique_id=1271275957 node_paths=PackedStringArray("status") instance=ExtResource("4_health_bar")]
+status = NodePath("../Status")
