@@ -4,11 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://bdlpfgq7araib" path="res://icon.svg" id="1_7k104"]
 [ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="2_status"]
 [ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="3_health_bar"]
+[ext_resource type="PackedScene" path="res://scenes/weapon_system/weapon_system.tscn" id="4_weapon_system"]
+[ext_resource type="Script" path="res://components/weapon/melee_contact_weapon_trigger.gd" id="5_melee_trigger"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
 size = Vector2(116, 115)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitarea"]
+size = Vector2(151, 150)
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1928488750]
+collision_layer = 5
 script = ExtResource("1_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1118756489]
@@ -22,3 +28,17 @@ texture = ExtResource("1_7k104")
 
 [node name="HealthBar" parent="." unique_id=121299128 node_paths=PackedStringArray("status") instance=ExtResource("3_health_bar")]
 status = NodePath("../Status")
+
+[node name="HitArea" type="Area2D" parent="." unique_id=2001100003]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=2001100004]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hitarea")
+
+[node name="WeaponSystem" parent="." unique_id=2001100005 instance=ExtResource("4_weapon_system")]
+
+[node name="MeleeContactWeaponTrigger" type="Node" parent="." unique_id=2001100006 node_paths=PackedStringArray("weapon_system", "hit_area")]
+script = ExtResource("5_melee_trigger")
+weapon_system = NodePath("../WeaponSystem")
+hit_area = NodePath("../HitArea")

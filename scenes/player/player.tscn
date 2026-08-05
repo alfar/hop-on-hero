@@ -4,13 +4,20 @@
 [ext_resource type="Script" uid="uid://b4e1r6xrwixse" path="res://components/movement/input_movement_behavior.gd" id="2_ihqmb"]
 [ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="3_status"]
 [ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="4_health_bar"]
+[ext_resource type="PackedScene" path="res://scenes/weapon_system/weapon_system.tscn" id="5_weapon_system"]
+[ext_resource type="Script" path="res://components/weapon/timer_weapon_trigger.gd" id="6_timer_trigger"]
+[ext_resource type="PackedScene" path="res://scenes/projectile/projectile.tscn" id="7_projectile"]
 
 [sub_resource type="Resource" id="InputMovementBehavior_ihqmb"]
 script = ExtResource("2_ihqmb")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fsqmc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitarea"]
+size = Vector2(52, 52)
+
 [node name="Player" type="CharacterBody2D" unique_id=489508266]
+collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_4flbx")
 movement_behavior = SubResource("InputMovementBehavior_ihqmb")
@@ -29,3 +36,16 @@ color = Color(1, 0, 0.25882354, 1)
 
 [node name="HealthBar" parent="." unique_id=1271275957 node_paths=PackedStringArray("status") instance=ExtResource("4_health_bar")]
 status = NodePath("../Status")
+
+[node name="HitArea" type="Area2D" parent="." unique_id=2001100001]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=2001100002]
+shape = SubResource("RectangleShape2D_hitarea")
+
+[node name="WeaponSystem" parent="." unique_id=2001100007 instance=ExtResource("5_weapon_system")]
+
+[node name="TimerWeaponTrigger" type="Node" parent="." unique_id=2001100008 node_paths=PackedStringArray("weapon_system")]
+script = ExtResource("6_timer_trigger")
+projectile_scene = ExtResource("7_projectile")
+weapon_system = NodePath("../WeaponSystem")
