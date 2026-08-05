@@ -11,7 +11,7 @@ func _ready() -> void:
 	current_shield = max_shield
 
 func handle_event(event: StatusEvent) -> void:
-	if event.type != "physical_damage" or current_shield <= 0:
+	if event.type != "physical_damage" or current_shield <= 0 or roundi(event.amount) == 0:
 		return
 
 	var absorbed: int = mini(roundi(event.amount), current_shield)

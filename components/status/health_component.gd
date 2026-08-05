@@ -13,7 +13,7 @@ func _ready() -> void:
 	current_health = max_health
 
 func handle_event(event: StatusEvent) -> void:
-	if event.type != "physical_damage":
+	if event.type != "physical_damage" or current_health == 0 or roundi(event.amount) == 0:
 		return
 
 	current_health = clampi(current_health - roundi(event.amount), 0, max_health)
