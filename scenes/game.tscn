@@ -5,11 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://cmaog850sk7dq" path="res://scenes/enemy/enemy.tscn" id="4_tlwt5"]
 [ext_resource type="Script" uid="uid://dvb8gldrpvog3" path="res://components/movement/target_movement_behavior.gd" id="5_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://bi28bpecb5fr" path="res://scenes/camera/camera.tscn" id="6_camera"]
+[ext_resource type="Script" uid="uid://ddnmjl4eetj53" path="res://components/activities/activity_manager.gd" id="7_activity_manager"]
+[ext_resource type="Script" uid="uid://crsjedfhhkyt3" path="res://components/activities/activity.gd" id="7_gee14"]
+[ext_resource type="Script" uid="uid://dbgpdmwu05psc" path="res://components/activities/boss_activity.gd" id="8_boss_activity"]
 
 [sub_resource type="Resource" id="Resource_tlwt5"]
 script = ExtResource("5_aqk2v")
 target = Vector2(10, 40)
 metadata/_custom_type_script = "uid://dvb8gldrpvog3"
+
+[sub_resource type="Resource" id="Resource_boss_activity"]
+script = ExtResource("8_boss_activity")
+boss_scene = ExtResource("4_tlwt5")
 
 [node name="Game" type="Node2D" unique_id=436653182]
 
@@ -23,3 +30,9 @@ position = Vector2(577, 340)
 [node name="Enemy" parent="." unique_id=1987643249 instance=ExtResource("4_tlwt5")]
 position = Vector2(1038, 477)
 movement_behavior = SubResource("Resource_tlwt5")
+
+[node name="ActivityManager" type="Node" parent="." unique_id=566755916 node_paths=PackedStringArray("world", "spawn_parent")]
+script = ExtResource("7_activity_manager")
+world = NodePath("../World")
+spawn_parent = NodePath("..")
+activities = Array[ExtResource("7_gee14")]([SubResource("Resource_boss_activity")])
