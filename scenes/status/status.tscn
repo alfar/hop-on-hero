@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d27tx4q6a8fhv"]
+
+[ext_resource type="Script" uid="uid://dqdi05bve116x" path="res://scenes/status/status.gd" id="1_status"]
+[ext_resource type="Script" uid="uid://bifxkh8m6h52p" path="res://components/status/shield_component.gd" id="2_shield"]
+[ext_resource type="Script" uid="uid://b5xsdboox7e7q" path="res://components/status/health_component.gd" id="3_health"]
+
+[node name="Status" type="Node2D" unique_id=1822180049]
+script = ExtResource("1_status")
+
+[node name="ShieldComponent" type="Node" parent="." unique_id=754325750]
+script = ExtResource("2_shield")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=525816800]
+script = ExtResource("3_health")

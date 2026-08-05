@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c0qmc0ugxjtqe" path="res://scenes/enemy/enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://bdlpfgq7araib" path="res://icon.svg" id="1_7k104"]
+[ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="2_status"]
+[ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="3_health_bar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
 size = Vector2(116, 115)
@@ -15,3 +17,8 @@ shape = SubResource("RectangleShape2D_4gyqm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1196122889]
 texture = ExtResource("1_7k104")
+
+[node name="Status" parent="." unique_id=31355540 instance=ExtResource("2_status")]
+
+[node name="HealthBar" parent="." unique_id=121299128 node_paths=PackedStringArray("status") instance=ExtResource("3_health_bar")]
+status = NodePath("../Status")
