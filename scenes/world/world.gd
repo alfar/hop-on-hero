@@ -6,3 +6,4 @@ extends Node2D
 func _ready() -> void:
 	GameEvents.world_size_changed.emit(world_size)
 	GameEvents.world_loaded.emit(true)
+	

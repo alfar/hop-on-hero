@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c0qmc0ugxjtqe" path="res://scenes/enemy/enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://bdlpfgq7araib" path="res://icon.svg" id="1_7k104"]
-[ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="2_status"]
+[ext_resource type="PackedScene" uid="uid://d27tx4q6a8fhv" path="res://scenes/status/status.tscn" id="2_status"]
 [ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="3_health_bar"]
 [ext_resource type="PackedScene" path="res://scenes/weapon_system/weapon_system.tscn" id="4_weapon_system"]
-[ext_resource type="Script" path="res://components/weapon/melee_contact_weapon_trigger.gd" id="5_melee_trigger"]
+[ext_resource type="Script" uid="uid://dapcsshpwqmf8" path="res://components/weapon/melee_contact_weapon_trigger.gd" id="5_melee_trigger"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
 size = Vector2(116, 115)
@@ -38,7 +38,7 @@ shape = SubResource("RectangleShape2D_hitarea")
 
 [node name="WeaponSystem" parent="." unique_id=2001100005 instance=ExtResource("4_weapon_system")]
 
-[node name="MeleeContactWeaponTrigger" type="Node" parent="." unique_id=2001100006 node_paths=PackedStringArray("weapon_system", "hit_area")]
+[node name="MeleeContactWeaponTrigger" type="Node" parent="." unique_id=2001100006 node_paths=PackedStringArray("hit_area", "weapon_system")]
 script = ExtResource("5_melee_trigger")
-weapon_system = NodePath("../WeaponSystem")
 hit_area = NodePath("../HitArea")
+weapon_system = NodePath("../WeaponSystem")

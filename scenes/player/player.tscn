@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b7j0u5fsvh52h" path="res://scenes/player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://b4e1r6xrwixse" path="res://components/movement/input_movement_behavior.gd" id="2_ihqmb"]
-[ext_resource type="PackedScene" path="res://scenes/status/status.tscn" id="3_status"]
+[ext_resource type="PackedScene" uid="uid://d27tx4q6a8fhv" path="res://scenes/status/status.tscn" id="3_status"]
 [ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="4_health_bar"]
 [ext_resource type="PackedScene" path="res://scenes/weapon_system/weapon_system.tscn" id="5_weapon_system"]
-[ext_resource type="Script" path="res://components/weapon/timer_weapon_trigger.gd" id="6_timer_trigger"]
+[ext_resource type="Script" uid="uid://vpdxyl7o7gxo" path="res://components/weapon/timer_weapon_trigger.gd" id="6_timer_trigger"]
 [ext_resource type="PackedScene" path="res://scenes/projectile/projectile.tscn" id="7_projectile"]
 
 [sub_resource type="Resource" id="InputMovementBehavior_ihqmb"]
@@ -16,11 +16,12 @@ script = ExtResource("2_ihqmb")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitarea"]
 size = Vector2(52, 52)
 
-[node name="Player" type="CharacterBody2D" unique_id=489508266]
+[node name="Player" type="CharacterBody2D" unique_id=489508266 node_paths=PackedStringArray("_timer_weapon_trigger")]
 collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_4flbx")
 movement_behavior = SubResource("InputMovementBehavior_ihqmb")
+_timer_weapon_trigger = NodePath("TimerWeaponTrigger")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1561564382]
 shape = SubResource("RectangleShape2D_fsqmc")

@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
 @export var movement_behavior: MovementBehavior
+@export var weapon_spawn_parent: Node
+@export var _timer_weapon_trigger: TimerWeaponTrigger
 
 var world_size: Vector2 = Vector2.ZERO
 var half_size := Vector2(20, 20)
 
 func _ready() -> void:
+	_timer_weapon_trigger.spawn_parent = weapon_spawn_parent
 	GameEvents.world_size_changed.subscribe(_on_world_size_changed)
 
 func _on_world_size_changed(size: Vector2) -> void:

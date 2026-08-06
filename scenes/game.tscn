@@ -22,11 +22,9 @@ boss_scene = ExtResource("4_tlwt5")
 
 [node name="World" parent="." unique_id=471775756 instance=ExtResource("2_world")]
 
-[node name="Player" parent="." unique_id=330061065 instance=ExtResource("3_f3sb7")]
+[node name="Player" parent="." unique_id=330061065 node_paths=PackedStringArray("weapon_spawn_parent") instance=ExtResource("3_f3sb7")]
 position = Vector2(577, 340)
-
-[node name="TimerWeaponTrigger" parent="Player" index="6" node_paths=PackedStringArray("spawn_parent")]
-spawn_parent = NodePath("../..")
+weapon_spawn_parent = NodePath("..")
 
 [node name="Camera2D" parent="Player" unique_id=1900130519 instance=ExtResource("6_camera")]
 
