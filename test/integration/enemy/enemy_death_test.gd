@@ -10,14 +10,16 @@ func test_died_stops_movement_and_disables_hit_area_immediately() -> void:
 	var moving_behavior := TargetMovementBehavior.new()
 	moving_behavior.target = Vector2(500, 0)
 	moving_behavior.speed = 400
-	enemy.movement_behavior = moving_behavior
+	var moving_stack := MovementStack.new()
+	moving_stack.push_behavior(moving_behavior)
+	enemy.movement_stack = moving_stack
 
 	var health: HealthComponent = enemy.get_node("Status").get_node("HealthComponent")
 	health.died.emit()
 
 	# Both effects must be visible immediately (same frame died fires), before
 	# any await -- only the fade's completion is asynchronous.
-	assert_eq(enemy.movement_behavior.get_velocity(enemy.position), Vector2.ZERO, "movement should stop as soon as died fires")
+	assert_eq(enemy.movement_stack.get_velocity(enemy.position), Vector2.ZERO, "movement should stop as soon as died fires")
 	assert_false(enemy.get_node("HitArea").monitoring, "HitArea should stop monitoring as soon as died fires")
 
 func test_died_fades_out_and_frees_the_enemy() -> void:

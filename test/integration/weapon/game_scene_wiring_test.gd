@@ -7,7 +7,7 @@ extends GutTest
 ## exposing Player.weapon_spawn_parent as a top-level @export that Player
 ## itself forwards to its TimerWeaponTrigger child in _ready() -- the same
 ## stable "override a property on the instance itself" pattern already used
-## by Enemy.movement_behavior. This test instances the actual game.tscn (not
+## by Enemy.movement_stack. This test instances the actual game.tscn (not
 ## Player/Enemy in isolation) so it exercises game.tscn's own override wiring,
 ## not just the component-level defaults.
 func test_player_weapon_spawn_parent_resolves_to_game_root() -> void:
@@ -26,6 +26,10 @@ func test_enemy_collision_layer_is_not_overridden_in_game_scene() -> void:
 	var game: Node2D = add_child_autofree(game_scene.instantiate())
 	await wait_physics_frames(1)
 
+	# game.tscn no longer has a static Enemy node; "Enemy" here is the
+	# BossActivity-spawned instance (ActivityManager fires its first
+	# activity synchronously on world_loaded, so it already exists by the
+	# time wait_physics_frames(1) above resolves).
 	var enemy := game.get_node("Enemy")
 
 	# Regression guard: an editor-added `collision_layer = 1` override on

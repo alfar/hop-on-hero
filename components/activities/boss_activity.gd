@@ -27,9 +27,19 @@ func execute(rng: RandomNumberGenerator, world_size: Vector2, spawn_parent: Node
 	var instance := boss_scene.instantiate()
 	instance.position = spawn_position
 
+	var player := spawn_parent.get_tree().get_first_node_in_group("player") as Node2D
+
+	var stack := MovementStack.new()
+
+	var chase_behavior := ChasePlayerMovementBehavior.new()
+	chase_behavior.player = player
+	stack.push_behavior(chase_behavior)
+
 	var behavior := TargetMovementBehavior.new()
 	behavior.target = target
-	instance.movement_behavior = behavior
+	stack.push_behavior(behavior)
+
+	instance.movement_stack = stack
 
 	spawn_parent.add_child.call_deferred(instance)
 

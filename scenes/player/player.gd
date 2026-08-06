@@ -8,6 +8,7 @@ var world_size: Vector2 = Vector2.ZERO
 var half_size := Vector2(20, 20)
 
 func _ready() -> void:
+	add_to_group("player")
 	_timer_weapon_trigger.spawn_parent = weapon_spawn_parent
 	GameEvents.world_size_changed.subscribe(_on_world_size_changed)
 
