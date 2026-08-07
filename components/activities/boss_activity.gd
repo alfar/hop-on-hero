@@ -33,13 +33,15 @@ func execute(rng: RandomNumberGenerator, world_size: Vector2, spawn_parent: Node
 
 	var chase_behavior := ChasePlayerMovementBehavior.new()
 	chase_behavior.player = player
+	chase_behavior.speed = 300
 	stack.push_behavior(chase_behavior)
 
 	var behavior := TargetMovementBehavior.new()
 	behavior.target = target
+	behavior.speed = 200
 	stack.push_behavior(behavior)
 
-	instance.movement_stack = stack
+	instance.movement_behavior = stack
 
 	spawn_parent.add_child.call_deferred(instance)
 

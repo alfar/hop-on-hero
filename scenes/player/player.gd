@@ -17,6 +17,12 @@ func _on_world_size_changed(size: Vector2) -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity = movement_behavior.get_velocity(position)
+	if velocity != Vector2.ZERO:
+		$AnimatedSprite2D.play("run")
+		$AnimatedSprite2D.flip_h = velocity.x < 0
+	else:
+		$AnimatedSprite2D.play("idle")
+		
 	move_and_slide()
 	if world_size != Vector2.ZERO:
 		global_position = global_position.clamp(half_size, world_size - half_size)

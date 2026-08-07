@@ -50,6 +50,23 @@ func test_melee_trigger_does_not_error_when_colliding_with_a_status_less_body() 
 
 	assert_true(is_instance_valid(enemy), "enemy should remain valid after colliding with a Status-less body")
 
+func test_enemy_bounces_away_from_player_on_contact() -> void:
+	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
+	var enemy := _make_enemy()
+	var player: Node2D = add_child_autofree(player_scene.instantiate())
+	# Enemy approaches from the +X side, so "away from the player" is a fixed,
+	# known direction (Vector2.RIGHT) regardless of how close they end up --
+	# recomputing it from final positions would be unreliable once _approach
+	# lerps the enemy all the way to an overlapping position.
+	enemy.global_position = player.global_position + Vector2(300, 0)
+
+	await _approach(enemy, player.global_position)
+
+	var velocity: Vector2 = enemy.movement_behavior.get_velocity(enemy.position)
+
+	assert_gt(velocity.length(), 0.0, "enemy should have a pushed knockback behavior moving it after contact")
+	assert_gt(velocity.normalized().dot(Vector2.RIGHT), 0.0, "enemy should move back toward +X (away from the player it approached from -X), not toward or past it")
+
 func test_re_entering_contact_triggers_damage_again() -> void:
 	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
 	var enemy := _make_enemy()

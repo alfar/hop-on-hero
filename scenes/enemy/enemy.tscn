@@ -38,7 +38,10 @@ shape = SubResource("RectangleShape2D_hitarea")
 
 [node name="WeaponSystem" parent="." unique_id=2001100005 instance=ExtResource("4_weapon_system")]
 
-[node name="MeleeContactWeaponTrigger" type="Node" parent="." unique_id=2001100006 node_paths=PackedStringArray("hit_area", "weapon_system")]
+[node name="MeleeContactWeaponTrigger" type="Node" parent="." unique_id=2001100006 node_paths=PackedStringArray("hit_area", "enemy", "weapon_system")]
 script = ExtResource("5_melee_trigger")
 hit_area = NodePath("../HitArea")
+enemy = NodePath("..")
+knockback_distance = 100.0
+knockback_speed = 400.0
 weapon_system = NodePath("../WeaponSystem")

@@ -9,6 +9,7 @@ script = ExtResource("1_status")
 
 [node name="ShieldComponent" type="Node" parent="." unique_id=754325750]
 script = ExtResource("2_shield")
+max_shield = 0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=525816800]
 script = ExtResource("3_health")

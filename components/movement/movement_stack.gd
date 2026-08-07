@@ -1,5 +1,5 @@
 class_name MovementStack
-extends Resource
+extends MovementBehavior
 
 @export var behaviors: Array[MovementBehavior] = []
 

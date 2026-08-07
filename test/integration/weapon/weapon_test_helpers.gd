@@ -8,5 +8,5 @@ extends RefCounted
 static func make_enemy(test_context: GutTest) -> Node2D:
 	var enemy_scene: PackedScene = load("res://scenes/enemy/enemy.tscn")
 	var enemy: Node2D = test_context.add_child_autofree(enemy_scene.instantiate())
-	enemy.movement_stack = MovementStack.new()
+	enemy.movement_behavior = MovementStack.new()
 	return enemy
