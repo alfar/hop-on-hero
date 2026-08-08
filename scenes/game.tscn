@@ -17,12 +17,17 @@
 [ext_resource type="PackedScene" uid="uid://bp6qphljp5qh7" path="res://scenes/inventory_display/inventory_display.tscn" id="14_trtic"]
 [ext_resource type="PackedScene" path="res://scenes/summary_screen/summary_screen.tscn" id="15_summary_screen"]
 [ext_resource type="Script" path="res://components/round/round_initializer.gd" id="16_round_initializer"]
+[ext_resource type="Script" path="res://components/activities/timer_activity_gate.gd" id="17_timer_activity_gate"]
+
+[sub_resource type="Resource" id="Resource_boss_activity_gate"]
+script = ExtResource("17_timer_activity_gate")
+wait_min = 5.0
+wait_max = 10.0
 
 [sub_resource type="Resource" id="Resource_boss_activity"]
 script = ExtResource("8_boss_activity")
 boss_scene = ExtResource("4_tlwt5")
-next_interval_min = 5.0
-next_interval_max = 10.0
+gate = SubResource("Resource_boss_activity_gate")
 
 [sub_resource type="Resource" id="Resource_ring_of_damage_weapon"]
 script = ExtResource("11_fixed_damage")
@@ -34,11 +39,15 @@ icon = ExtResource("14_ring_icon")
 components = Array[ExtResource("12_weapon_component")]([SubResource("Resource_ring_of_damage_weapon")])
 pickup_scene = ExtResource("13_item_pickup")
 
+[sub_resource type="Resource" id="Resource_item_drop_activity_gate"]
+script = ExtResource("17_timer_activity_gate")
+wait_min = 5.0
+wait_max = 10.0
+
 [sub_resource type="Resource" id="Resource_item_drop_activity"]
 script = ExtResource("9_item_drop_activity")
 items = Array[ExtResource("10_item")]([SubResource("Resource_ring_of_damage")])
-next_interval_min = 5.0
-next_interval_max = 10.0
+gate = SubResource("Resource_item_drop_activity_gate")
 
 [node name="Game" type="Node2D" unique_id=436653182]
 script = ExtResource("1_ir15t")

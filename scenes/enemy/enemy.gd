@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_to_group("enemy")
 	$Status/HealthComponent.died.connect(_on_died)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity = movement_behavior.get_velocity(position)
 	move_and_slide()
 

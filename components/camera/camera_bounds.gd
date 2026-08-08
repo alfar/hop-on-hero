@@ -6,5 +6,5 @@ func _ready() -> void:
 func _on_world_size_changed(size: Vector2) -> void:
 	limit_left = 0
 	limit_top = 0
-	limit_right = size.x
-	limit_bottom = size.y
+	limit_right = floori(size.x)
+	limit_bottom = floori(size.y)

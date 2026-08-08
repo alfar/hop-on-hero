@@ -15,9 +15,9 @@ func _ready() -> void:
 func get_time_played_seconds() -> float:
 	return (Time.get_ticks_msec() - _round_start_ticks_msec) / 1000.0
 
-func _on_round_ended(time_played_seconds: float) -> void:
-	GameEvents.paused.emit()
-	$HUD/SummaryScreen.show_summary(time_played_seconds)
+func _on_round_ended(time_played_seconds: float, outcome: GameEvents.RoundOutcome) -> void:
+	GameEvents.emit_paused()
+	$HUD/SummaryScreen.show_summary(time_played_seconds, outcome)
 
 ## Game is the sole subscriber that translates the pause/resume *intent*
 ## (GameEvents.paused/resumed) into the real get_tree().paused toggle -- kept
@@ -46,5 +46,5 @@ func stage_next_seed(seed_value: int) -> void:
 	GameEvents.next_level_seed = seed_value
 
 func _restart() -> void:
-	GameEvents.resumed.emit()
+	GameEvents.emit_resumed()
 	get_tree().reload_current_scene()

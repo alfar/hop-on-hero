@@ -17,6 +17,6 @@ func handle_event(event: StatusEvent) -> void:
 		return
 
 	current_health = clampi(current_health - roundi(event.amount), 0, max_health)
-	value_changed.emit(STATUS_TYPE, current_health, max_health)
+	emit_value_changed(STATUS_TYPE, current_health, max_health)
 	if current_health == 0:
 		died.emit()

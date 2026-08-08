@@ -3,13 +3,18 @@ extends Node
 var world_size_changed := BehaviorSubject.new()
 var world_loaded := BehaviorSubject.new()
 
+enum RoundOutcome { LOST, WON, PYRRHIC_VICTORY }
+
 ## Plain signal, not a BehaviorSubject: fired once per round by Player on
-## death. A BehaviorSubject would replay its cached "round ended" value to
-## the next round's fresh subscriber the moment it subscribes, instantly
-## re-freezing/re-showing the summary screen -- nothing re-emits a fresh
-## "not ended" value on the next load the way World re-emits
-## world_size_changed/world_loaded every load.
-signal round_ended(time_played_seconds: float)
+## death or ActivityManager on a game-mode win. A BehaviorSubject would
+## replay its cached "round ended" value to the next round's fresh
+## subscriber the moment it subscribes, instantly re-freezing/re-showing the
+## summary screen -- nothing re-emits a fresh "not ended" value on the next
+## load the way World re-emits world_size_changed/world_loaded every load.
+signal round_ended(time_played_seconds: float, outcome: RoundOutcome)
+
+func emit_round_ended(time_played_seconds: float, outcome: RoundOutcome) -> void:
+	round_ended.emit(time_played_seconds, outcome)
 
 ## One-shot carry-through value for the seed to use on the next scene load
 ## (set by Game before calling get_tree().reload_current_scene()). Not a
@@ -28,3 +33,9 @@ var next_level_seed: int = 0
 ## un-pauses it except that test's own teardown running to completion first.
 signal paused
 signal resumed
+
+func emit_paused() -> void:
+	paused.emit()
+
+func emit_resumed() -> void:
+	resumed.emit()

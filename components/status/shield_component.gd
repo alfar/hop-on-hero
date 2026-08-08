@@ -17,4 +17,4 @@ func handle_event(event: StatusEvent) -> void:
 	var absorbed: int = mini(roundi(event.amount), current_shield)
 	current_shield -= absorbed
 	event.amount -= absorbed
-	value_changed.emit(STATUS_TYPE, current_shield, max_shield)
+	emit_value_changed(STATUS_TYPE, current_shield, max_shield)

@@ -55,7 +55,7 @@ func test_died_emits_round_ended_with_zero_time_when_no_game_node_exists() -> vo
 	var player: Node2D = WeaponTestHelpers.make_player(self)
 
 	var received := []
-	var callable := func(value): received.append(value)
+	var callable := func(time, outcome): received.append([time, outcome])
 	GameEvents.round_ended.connect(callable)
 
 	var health: HealthComponent = player.get_node("Status").get_node("HealthComponent")
@@ -63,5 +63,5 @@ func test_died_emits_round_ended_with_zero_time_when_no_game_node_exists() -> vo
 	await player._animation_player.animation_finished
 	await wait_physics_frames(1)
 
-	assert_eq(received, [0.0], "with no Game ancestor in the scene tree, round_ended should fire with 0.0 rather than erroring")
+	assert_eq(received, [[0.0, GameEvents.RoundOutcome.LOST]], "with no Game ancestor in the scene tree, round_ended should fire with 0.0/LOST rather than erroring")
 	GameEvents.round_ended.disconnect(callable)

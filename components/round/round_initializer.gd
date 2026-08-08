@@ -19,7 +19,7 @@ func _ready() -> void:
 
 	var size := _pick_world_size()
 	world.world_size = size
-	world.fill_tiles(_rng, Vector2i(size.x / TILE_SIZE, size.y / TILE_SIZE))
+	world.fill_tiles(_rng, Vector2i(floori(size.x / TILE_SIZE), floori(size.y / TILE_SIZE)))
 
 	GameEvents.world_size_changed.emit(size)
 	GameEvents.world_loaded.emit(true)
