@@ -31,7 +31,7 @@ func _on_resumed() -> void:
 	get_tree().paused = false
 
 func _on_retry_pressed() -> void:
-	stage_next_seed($ActivityManager.level_seed)
+	stage_next_seed($RoundInitializer.level_seed)
 	_restart()
 
 func _on_new_seed_pressed() -> void:

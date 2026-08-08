@@ -60,8 +60,8 @@ func test_summary_screen_shows_correct_elapsed_time() -> void:
 ## left to manual verification instead.
 func test_retry_stages_the_same_seed() -> void:
 	var game := await _make_game()
-	var activity_manager: ActivityManager = game.get_node("ActivityManager")
-	var original_seed := activity_manager.level_seed
+	var round_initializer: RoundInitializer = game.get_node("RoundInitializer")
+	var original_seed := round_initializer.level_seed
 
 	game.stage_next_seed(original_seed)
 

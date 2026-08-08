@@ -1,22 +1,21 @@
 extends GutTest
 
-func after_each() -> void:
-	# GameEvents.next_level_seed is shared autoload state -- reset it so a
-	# value set here can't leak into unrelated tests instancing ActivityManager.
-	GameEvents.next_level_seed = 0
-
-func test_uses_next_level_seed_when_set() -> void:
-	GameEvents.next_level_seed = 12345
-
+func test_start_triggers_first_activity_using_injected_rng() -> void:
 	var activity_manager := ActivityManager.new()
 	add_child_autofree(activity_manager)
+	activity_manager.spawn_parent = activity_manager
+	activity_manager.activities = [Activity.new()]
 
-	assert_eq(activity_manager.level_seed, 12345)
+	var world := World.new()
+	var tile_map_layer := TileMapLayer.new()
+	tile_map_layer.name = "TileMapLayer"
+	world.add_child(tile_map_layer)
+	activity_manager.world = add_child_autofree(world)
+	activity_manager.world.world_size = Vector2(640, 640)
 
-func test_falls_back_to_randomize_when_next_level_seed_is_unset() -> void:
-	GameEvents.next_level_seed = 0
+	activity_manager.rng = RandomNumberGenerator.new()
+	activity_manager.rng.seed = 42
 
-	var activity_manager := ActivityManager.new()
-	add_child_autofree(activity_manager)
+	activity_manager.start()
 
-	assert_ne(activity_manager.level_seed, 0, "level_seed should be randomized when neither an exported value nor a staged next_level_seed is set")
+	assert_between(activity_manager._timer.wait_time, 20.0, 40.0, "start() should schedule the next activity's timer using the injected rng")

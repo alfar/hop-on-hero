@@ -1,5 +1,13 @@
 extends GutTest
 
+## GameEvents.world_size_changed is a BehaviorSubject shared across the whole
+## test run -- Player clamps its position to whatever value it last cached.
+## Without this, this test's positions depend on whichever world_size some
+## unrelated earlier test happened to leave behind. Emit a value large enough
+## to comfortably contain this test's positions regardless of run order.
+func before_each() -> void:
+	GameEvents.world_size_changed.emit(Vector2(4000, 4000))
+
 func _make_player() -> Node2D:
 	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
 	var player: Node2D = player_scene.instantiate()

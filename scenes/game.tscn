@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cad68vyyxc1tc" path="res://assets/TinySwords/UI Elements/UI Elements/Icons/Icon_01.png" id="14_ring_icon"]
 [ext_resource type="PackedScene" uid="uid://bp6qphljp5qh7" path="res://scenes/inventory_display/inventory_display.tscn" id="14_trtic"]
 [ext_resource type="PackedScene" path="res://scenes/summary_screen/summary_screen.tscn" id="15_summary_screen"]
+[ext_resource type="Script" path="res://components/round/round_initializer.gd" id="16_round_initializer"]
 
 [sub_resource type="Resource" id="Resource_boss_activity"]
 script = ExtResource("8_boss_activity")
@@ -61,3 +62,8 @@ script = ExtResource("7_activity_manager")
 world = NodePath("../World")
 spawn_parent = NodePath("..")
 activities = Array[ExtResource("7_gee14")]([SubResource("Resource_boss_activity"), SubResource("Resource_item_drop_activity")])
+
+[node name="RoundInitializer" type="Node" parent="." node_paths=PackedStringArray("world", "activity_manager")]
+script = ExtResource("16_round_initializer")
+world = NodePath("../World")
+activity_manager = NodePath("../ActivityManager")
