@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://dh07tsxusb2ce"]
 
-[ext_resource type="Script" path="res://scenes/weapon_system/weapon_system.gd" id="1_weapon_system"]
-[ext_resource type="Script" path="res://components/weapon/fixed_damage_weapon_component.gd" id="2_fixed_damage"]
+[ext_resource type="Script" uid="uid://ekvhpr4bw2rb" path="res://scenes/weapon_system/weapon_system.gd" id="1_weapon_system"]
 
-[node name="WeaponSystem" type="Node2D"]
+[node name="WeaponSystem" type="Node2D" unique_id=795712265]
 script = ExtResource("1_weapon_system")
-
-[node name="FixedDamageWeaponComponent" type="Node" parent="."]
-script = ExtResource("2_fixed_damage")

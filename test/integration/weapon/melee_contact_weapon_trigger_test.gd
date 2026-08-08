@@ -2,9 +2,7 @@ extends GutTest
 
 func _make_enemy(damage: int = 100) -> Node2D:
 	var enemy := WeaponTestHelpers.make_enemy(self)
-	# Boosted well past the player's default shield capacity (50) so damage
-	# actually reaches HealthComponent instead of being fully absorbed.
-	var weapon_component: FixedDamageWeaponComponent = enemy.get_node("WeaponSystem").get_node("FixedDamageWeaponComponent")
+	var weapon_component: FixedDamageWeaponComponent = enemy.get_node("WeaponSystem").components[0]
 	weapon_component.damage = damage
 	return enemy
 
@@ -22,9 +20,8 @@ func _approach(body: Node2D, target_position: Vector2) -> void:
 		await wait_physics_frames(1)
 
 func test_enemy_colliding_with_player_damages_player_status() -> void:
-	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
 	var enemy := _make_enemy()
-	var player: Node2D = add_child_autofree(player_scene.instantiate())
+	var player: Node2D = WeaponTestHelpers.make_player(self)
 	enemy.global_position = player.global_position + Vector2(300, 0)
 
 	var health: HealthComponent = player.get_node("Status").get_node("HealthComponent")
@@ -51,9 +48,8 @@ func test_melee_trigger_does_not_error_when_colliding_with_a_status_less_body() 
 	assert_true(is_instance_valid(enemy), "enemy should remain valid after colliding with a Status-less body")
 
 func test_enemy_bounces_away_from_player_on_contact() -> void:
-	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
 	var enemy := _make_enemy()
-	var player: Node2D = add_child_autofree(player_scene.instantiate())
+	var player: Node2D = WeaponTestHelpers.make_player(self)
 	# Enemy approaches from the +X side, so "away from the player" is a fixed,
 	# known direction (Vector2.RIGHT) regardless of how close they end up --
 	# recomputing it from final positions would be unreliable once _approach
@@ -68,9 +64,12 @@ func test_enemy_bounces_away_from_player_on_contact() -> void:
 	assert_gt(velocity.normalized().dot(Vector2.RIGHT), 0.0, "enemy should move back toward +X (away from the player it approached from -X), not toward or past it")
 
 func test_re_entering_contact_triggers_damage_again() -> void:
-	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
-	var enemy := _make_enemy()
-	var player: Node2D = add_child_autofree(player_scene.instantiate())
+	# A smaller-than-max-health hit (rather than _make_enemy()'s 100-damage
+	# default), so the player survives the first contact with health to
+	# spare -- otherwise the first hit alone would already floor health at 0,
+	# leaving no room to observe a further decrease on re-entry.
+	var enemy := _make_enemy(30)
+	var player: Node2D = WeaponTestHelpers.make_player(self)
 	enemy.global_position = player.global_position + Vector2(300, 0)
 
 	var health: HealthComponent = player.get_node("Status").get_node("HealthComponent")

@@ -26,10 +26,18 @@ func test_enemy_collision_layer_is_not_overridden_in_game_scene() -> void:
 	var game: Node2D = add_child_autofree(game_scene.instantiate())
 	await wait_physics_frames(1)
 
-	# game.tscn no longer has a static Enemy node; "Enemy" here is the
-	# BossActivity-spawned instance (ActivityManager fires its first
-	# activity synchronously on world_loaded, so it already exists by the
-	# time wait_physics_frames(1) above resolves).
+	# game.tscn no longer has a static Enemy node, and ActivityManager now
+	# picks randomly between multiple activities (BossActivity, ItemDropActivity),
+	# so we can't rely on BossActivity firing first on its own. Call it
+	# directly instead -- it still uses game.tscn's own enemy.tscn reference,
+	# which is what this test actually needs to check.
+	var activity_manager: ActivityManager = game.get_node("ActivityManager")
+	var boss_activity: BossActivity = activity_manager.activities.filter(func(a): return a is BossActivity)[0]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1
+	boss_activity.execute(rng, activity_manager.world.world_size, activity_manager.spawn_parent)
+	await wait_physics_frames(1)
+
 	var enemy := game.get_node("Enemy")
 
 	# Regression guard: an editor-added `collision_layer = 1` override on

@@ -22,15 +22,13 @@ func test_projectile_damages_target_status_on_contact_and_self_destructs() -> vo
 	var health: HealthComponent = enemy.get_node("Status").get_node("HealthComponent")
 	var starting_health: int = health.current_health
 
-	# Boosted well past the enemy's default shield capacity (50) so damage
-	# actually reaches HealthComponent instead of being fully absorbed.
 	projectile.damage = 65
 	projectile.direction = Vector2.ZERO
 	projectile.global_position = enemy.global_position
 
 	await wait_physics_frames(2)
 
-	assert_eq(health.current_health, starting_health - 15)
+	assert_eq(health.current_health, starting_health - 65)
 	assert_true(not is_instance_valid(projectile) or projectile.is_queued_for_deletion(), "projectile should self-destruct on contact")
 
 func test_projectile_self_destructs_when_hitting_a_status_less_body() -> void:

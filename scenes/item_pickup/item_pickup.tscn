@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://do3uhw68b8msq"]
+
+[ext_resource type="Script" uid="uid://g0y5vbj88sum" path="res://scenes/item_pickup/item_pickup.gd" id="1_item_pickup"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_item_pickup"]
+size = Vector2(64, 64)
+
+[node name="ItemPickup" type="Area2D" unique_id=157904010]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_item_pickup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=807452384]
+shape = SubResource("RectangleShape2D_item_pickup")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=92764393]

@@ -36,8 +36,10 @@ func test_died_fades_out_and_frees_the_enemy() -> void:
 func test_dead_enemy_deals_no_further_contact_damage() -> void:
 	var player_scene: PackedScene = load("res://scenes/player/player.tscn")
 	var enemy := _make_enemy_with_fast_fade()
-	var weapon_component: FixedDamageWeaponComponent = enemy.get_node("WeaponSystem").get_node("FixedDamageWeaponComponent")
+	var weapon_component := FixedDamageWeaponComponent.new()
 	weapon_component.damage = 100
+	(enemy.get_node("WeaponSystem") as WeaponSystem).components.append(weapon_component)
+	
 	var player: Node2D = add_child_autofree(player_scene.instantiate())
 	enemy.global_position = player.global_position
 

@@ -6,12 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://d27tx4q6a8fhv" path="res://scenes/status/status.tscn" id="3_status"]
 [ext_resource type="Texture2D" uid="uid://dr0nd4174k5w1" path="res://assets/TinySwords/Units/Blue Units/Archer/Archer_Run.png" id="4_h17s1"]
 [ext_resource type="PackedScene" uid="uid://dp08d0clnq66x" path="res://scenes/health_bar/health_bar.tscn" id="4_health_bar"]
-[ext_resource type="PackedScene" path="res://scenes/weapon_system/weapon_system.tscn" id="5_weapon_system"]
+[ext_resource type="Texture2D" uid="uid://0ub6aasoimmu" path="res://assets/TinySwords/Units/Blue Units/Archer/Archer_Shoot.png" id="5_h17s1"]
+[ext_resource type="PackedScene" uid="uid://dh07tsxusb2ce" path="res://scenes/weapon_system/weapon_system.tscn" id="5_weapon_system"]
 [ext_resource type="Script" uid="uid://vpdxyl7o7gxo" path="res://components/weapon/timer_weapon_trigger.gd" id="6_timer_trigger"]
 [ext_resource type="PackedScene" path="res://scenes/projectile/projectile.tscn" id="7_projectile"]
+[ext_resource type="Script" uid="uid://bi7ga57011fr4" path="res://components/weapon/fixed_damage_weapon_component.gd" id="8_fixed_damage"]
+[ext_resource type="Script" uid="uid://ccx6u3ocny2nm" path="res://components/inventory/inventory.gd" id="9_inventory"]
+[ext_resource type="Script" uid="uid://d2002hr42stx7" path="res://components/inventory/inventory_weapon_component.gd" id="10_inventory_weapon"]
+[ext_resource type="Script" uid="uid://dineowoxdbuy7" path="res://components/weapon/weapon_component.gd" id="11_weapon_component"]
+[ext_resource type="Script" uid="uid://dm0ei6gyisuou" path="res://components/inventory/inventory_drop_input.gd" id="12_inventory_drop_input"]
 
 [sub_resource type="Resource" id="InputMovementBehavior_ihqmb"]
 script = ExtResource("2_ihqmb")
+
+[sub_resource type="Resource" id="Resource_inventory_weapon"]
+script = ExtResource("10_inventory_weapon")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 22.41
@@ -57,6 +66,38 @@ region = Rect2(432, 48, 96, 96)
 atlas = ExtResource("4_h17s1")
 region = Rect2(624, 48, 96, 96)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j4b4"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(48, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj68g"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(240, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioxgp"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(432, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnsyf"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(624, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_007i1"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(816, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cv16"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(1008, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4nxn"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(1200, 48, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28m0y"]
+atlas = ExtResource("5_h17s1")
+region = Rect2(1392, 48, 96, 96)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fsqmc"]
 animations = [{
 "frames": [{
@@ -98,18 +139,53 @@ animations = [{
 "loop": 1,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j4b4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj68g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ioxgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnsyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_007i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cv16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4nxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28m0y")
+}],
+"loop": 1,
+"name": &"shoot",
+"speed": 16.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h17s1"]
 radius = 35.0
 height = 75.86
 
-[node name="Player" type="CharacterBody2D" unique_id=489508266 node_paths=PackedStringArray("_timer_weapon_trigger")]
+[sub_resource type="Resource" id="Resource_fixed_damage"]
+script = ExtResource("8_fixed_damage")
+
+[node name="Player" type="CharacterBody2D" unique_id=489508266 node_paths=PackedStringArray("_timer_weapon_trigger", "inventory", "_inventory_drop_input")]
 collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_4flbx")
 movement_behavior = SubResource("InputMovementBehavior_ihqmb")
 _timer_weapon_trigger = NodePath("TimerWeaponTrigger")
+inventory = NodePath("Inventory")
+inventory_weapon_component = SubResource("Resource_inventory_weapon")
+_inventory_drop_input = NodePath("InventoryDropInput")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1561564382]
 position = Vector2(0, -1)
@@ -117,7 +193,8 @@ shape = SubResource("CapsuleShape2D_5gtgg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=296587737]
 sprite_frames = SubResource("SpriteFrames_fsqmc")
-animation = &"run"
+animation = &"shoot"
+frame_progress = 0.37259296
 
 [node name="Status" parent="." unique_id=1618486206 instance=ExtResource("3_status")]
 
@@ -132,6 +209,14 @@ position = Vector2(-2, -4)
 shape = SubResource("CapsuleShape2D_h17s1")
 
 [node name="WeaponSystem" parent="." unique_id=2001100007 instance=ExtResource("5_weapon_system")]
+components = Array[ExtResource("11_weapon_component")]([SubResource("Resource_fixed_damage"), SubResource("Resource_inventory_weapon")])
+
+[node name="Inventory" type="Node" parent="." unique_id=2001100009]
+script = ExtResource("9_inventory")
+
+[node name="InventoryDropInput" type="Node" parent="." unique_id=2001100010 node_paths=PackedStringArray("inventory")]
+script = ExtResource("12_inventory_drop_input")
+inventory = NodePath("../Inventory")
 
 [node name="TimerWeaponTrigger" type="Node" parent="." unique_id=2001100008 node_paths=PackedStringArray("weapon_system")]
 script = ExtResource("6_timer_trigger")

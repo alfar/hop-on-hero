@@ -16,7 +16,9 @@ func _on_world_size_changed(size: Vector2) -> void:
 	_world_size = size
 
 func _physics_process(delta: float) -> void:
-	position += direction * speed * delta
+	var new_position = position + direction * speed * delta
+	look_at(new_position)
+	position = new_position
 
 	if _world_size != Vector2.ZERO and not Rect2(Vector2.ZERO, _world_size).has_point(global_position):
 		queue_free()
