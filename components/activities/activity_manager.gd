@@ -10,6 +10,8 @@ var _rng := RandomNumberGenerator.new()
 var _timer: Timer
 
 func _ready() -> void:
+	if GameEvents.next_level_seed != 0:
+		level_seed = GameEvents.next_level_seed
 	if level_seed == 0:
 		level_seed = randi()
 		print("ActivityManager seed: ", level_seed)

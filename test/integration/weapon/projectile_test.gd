@@ -45,7 +45,12 @@ func test_projectile_self_destructs_when_hitting_a_status_less_body() -> void:
 
 	projectile.damage = 5
 	projectile.direction = Vector2.ZERO
-	projectile.global_position = body.global_position
+	# The projectile's own CollisionShape2D is offset from its origin
+	# (position = Vector2(17, 0) in projectile.tscn, matching the sprite's
+	# arrowhead), so the body must be placed at that same offset to actually
+	# overlap it -- placing both at global_position (0,0) would put the body
+	# under the projectile's origin, not its hitbox.
+	body.global_position = projectile.global_position + Vector2(17, 0)
 
 	await wait_physics_frames(2)
 

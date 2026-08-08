@@ -23,7 +23,14 @@ func _make_player() -> Node2D:
 
 func test_dropping_a_filled_slot_spawns_pickup_and_clears_slot() -> void:
 	var player := _make_player()
-	player.global_position = Vector2(2000, 2000)
+	# Kept within [0, 1600]x[0, 1200] -- other tests in this suite (e.g.
+	# round_end_test.gd, which instances the real game.tscn/World) emit via
+	# GameEvents.world_size_changed, a cached BehaviorSubject that replays
+	# its last value to every later subscriber, including Player's own
+	# position-clamping. A position outside those bounds would get yanked
+	# back inside them by Player._physics_process(), moving the player after
+	# this test sets its position and throwing off the drop-distance assertion.
+	player.global_position = Vector2(700, 200)
 	var inventory: Inventory = player.get_node("Inventory")
 	var drop_input: InventoryDropInput = player.get_node("InventoryDropInput")
 	var item := Item.new()

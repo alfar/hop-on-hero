@@ -14,6 +14,9 @@ func _ready() -> void:
 	_timer.timeout.connect(_on_timeout)
 	_timer.start()
 
+func stop() -> void:
+	_timer.stop()
+
 func _on_timeout() -> void:
 	var target := _find_nearest_enemy()
 	if target == null:
